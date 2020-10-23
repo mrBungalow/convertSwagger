@@ -1,0 +1,519 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: HCA Customer Configuration Service
+  description: CRUD APIs for payer configs
+  termsOfService: ""
+  contact:
+    email: jon.baso@changehealthcare.com
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+tags:
+  - name: HCA Payer Service Site Settings APIs
+    description: "CRUD APIs for payer config"
+paths:
+  "/customer/{id}":
+    get:
+      description: get customer config
+      security:
+        - ciam_auth: []
+      parameters:
+        - name: id
+          description: payer id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/customerResponse"
+        "400":
+          description: Bad request
+        "401":
+          description: Unauthorized
+        "500":
+          description: Internal server error
+    put:
+      description: update the customer config
+      security:
+        - ciam_auth: []
+      parameters:
+        - name: id
+          description: payer id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/customerRequest"
+        required: true      
+      responses:
+        "200":
+          description: Successful
+        "400":
+          description: Bad request
+        "401":
+          description: Unauthorized
+        "500":
+          description: Internal server error
+  "/customer":
+    get:
+      description: get all customers 
+      security:
+        - ciam_auth: []
+      responses:
+        "200":
+          description: Successful
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/customerResponse"
+        "400":
+          description: Bad request
+        "401":
+          description: Unauthorized
+        "500":
+          description: Internal server error
+    post:
+      description: create new customer
+      security:
+        - ciam_auth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/customerRequest"
+      responses:
+        "200":
+          description: Successful
+        "400":
+          description: Bad request
+        "401":
+          description: Unauthorized
+        "500":
+          description: Internal server error
+  "/customer/{id}/source":
+    get:
+      description: get all sources for a given customer
+      security:
+        - ciam_auth: []
+      parameters:
+        - name: id
+          description: payer id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/sourceResponse"
+        "400":
+          description: Bad request
+        "401":
+          description: Unauthorized
+        "500":
+          description: Internal server error
+    post:
+      description: create new source for a given customer
+      security:
+        - ciam_auth: []
+      parameters:
+        - name: id
+          description: payer id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/sourceRequest"
+      responses:
+        "200":
+          description: Successful
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/sourceResponse"
+        "400":
+          description: Bad request
+        "401":
+          description: Unauthorized
+        "500":
+          description: Internal server error
+  "/customer/{id}/source/{sourceId}":
+    get:
+      description: get all sources for a given customer
+      security:
+        - ciam_auth: []
+      parameters:
+        - name: id
+          description: payer id
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: sourceId
+          description: payer id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/sourceResponse"
+        "400":
+          description: Bad request
+        "401":
+          description: Unauthorized
+        "500":
+          description: Internal server error
+    put:
+      description: update a given source for a given customer
+      security:
+        - ciam_auth: []
+      parameters:
+        - name: id
+          description: payer id
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: sourceId
+          description: payer id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/sourceRequest"
+      responses:
+        "200":
+          description: Successful
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/sourceResponse"
+        "400":
+          description: Bad request
+        "401":
+          description: Unauthorized
+        "500":
+          description: Internal server error
+  "/source":
+    get:
+      description: get all sources
+      security:
+        - ciam_auth: []
+      responses:
+        "200":
+          description: Successful
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/sourceResponse"
+        "400":
+          description: Bad request
+        "401":
+          description: Unauthorized
+        "500":
+          description: Internal server error
+  "/source/{sourceId}/sender":
+    get:
+      description: get all senders for a given source
+      security:
+        - ciam_auth: []
+      parameters:
+        - name: sourceId
+          description: source id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/senderResponse"
+        "400":
+          description: Bad request
+        "401":
+          description: Unauthorized
+        "500":
+          description: Internal server error
+    post:
+      description: create new sender for a given source
+      security:
+        - ciam_auth: []
+      parameters:
+        - name: sourceId
+          description: source id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/senderRequest"
+      responses:
+        "200":
+          description: Successful
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/senderResponse"
+        "400":
+          description: Bad request
+        "401":
+          description: Unauthorized
+        "500":
+          description: Internal server error
+  "/source/{sourceId}/sender/{senderId}":
+    get:
+      description: get a given sender for a given source
+      security:
+        - ciam_auth: []
+      parameters:
+        - name: sourceId
+          description: source id
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: senderId
+          description: sender id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/senderResponse"
+        "400":
+          description: Bad request
+        "401":
+          description: Unauthorized
+        "500":
+          description: Internal server error
+    put:
+      description: update a given sender for a given source
+      security:
+        - ciam_auth: []
+      parameters:
+        - name: sourceId
+          description: source id
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: senderId
+          description: sender id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/senderRequest"
+      responses:
+        "200":
+          description: Successful
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/senderResponse"
+        "400":
+          description: Bad request
+        "401":
+          description: Unauthorized
+        "500":
+          description: Internal server error
+  "/sender":
+    get:
+      description: get all sources
+      security:
+        - ciam_auth: []
+      responses:
+        "200":
+          description: Successful
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/senderResponse"
+        "400":
+          description: Bad request
+        "401":
+          description: Unauthorized
+        "500":
+          description: Internal server error
+servers:
+  - url: https://api-qa-internal.apip.awsnonprod.healthcareit.net:443/dataservices/payerConfigService/v1/config
+    description: Apigee secured QA proxy  (CIAM)
+components:
+  securitySchemes:
+    ciam_auth:
+      type: apiKey
+      name: Authorization
+      in: header
+      description: This is the Apigee Application Access token, not a USER level token.
+  schemas:
+    baseCustomer:
+      type: object
+      properties:
+        customer_id: 
+          type: string
+          format: uuid
+          example: "ffffffff-aaaa-aaaa-aaaa-ffffffffffff"
+        customer_name:
+          type: string
+          example: "Insurance Company"
+        short_name:
+          type: string
+          example: "insco"
+        mdm_id:
+          type: string
+          example: "Insurance Company"
+        sftp_test:
+          type: string
+          example: "http://test.ftp.com"
+        sftp_preprod:
+          type: string
+          example: "http://preprod.ftp.com"
+        sftp_prod:
+          type: string
+          example: "http://prod.ftp.com"
+        member_preprod_url:
+          type: string
+          example: "http://test.memberurl.com"
+        member_prod_url:
+          type: string
+          example: "http://memberurl.com"
+        payer_preprod_url:
+          type: string
+          example: "http://test.payerurl.com"
+        payer_prod_url:
+          type: string
+          example: "http://payerurl.com"  
+        customer_type:
+          type: number
+          example: 1
+        customer_fhir_base:
+          type: string
+          example: "fhir_base"
+        customer_fhir_pharm:
+          type: string
+          example: "fhir_pharm"
+    customerRequest:
+      allOf:
+        - $ref: "#/components/schemas/baseCustomer"
+        - type: object
+          required: 
+            - customer_id
+            - customer_name
+            - short_name
+    customerResponse: 
+      allOf:
+        - $ref: '#/components/schemas/baseCustomer'
+        - type: object
+          properties:
+            customer_internal_id:
+              type: string
+              format: uuid
+              example: '11111111-2222-3333-4444-1234567890ab'
+    baseSource:
+      type: object
+      properties:
+        source_id: 
+          type: string
+          format: uuid
+          example: "ffffffff-aaaa-aaaa-aaaa-ffffffffffff"
+        source_name:
+          type: string
+          example: "Source Name"
+    sourceRequest:
+      allOf:
+        - $ref: "#/components/schemas/baseSource"
+        - type: object
+          required: 
+            - source_id
+            - source_name
+    sourceResponse: 
+      allOf:
+        - $ref: '#/components/schemas/baseSource'
+        - type: object
+          properties:
+            source_internal_id:
+              type: string
+              format: uuid
+              example: '11111111-2222-3333-4444-1234567890ab'      
+            customer_internal_id:
+              type: string
+              format: uuid
+              example: 'cccccccc-1234-4321-abcd-1234567890ab' 
+    baseSender:
+      type: object
+      properties:
+        sender_id: 
+          type: string
+          format: uuid
+          example: "ffffffff-aaaa-aaaa-aaaa-ffffffffffff"
+        sender_name:
+          type: string
+          example: "Source Name"
+        member_id_type: 
+          type: number
+          example: 1
+        sender_type_scope:
+          type: string
+          example: "Sender Scope"
+          
+    senderRequest:
+      allOf:
+        - $ref: "#/components/schemas/baseSender"
+        - type: object
+          required: 
+            - sender_id
+            - sender_name
+    senderResponse: 
+      allOf:
+        - $ref: '#/components/schemas/baseSender'
+        - type: object
+          properties:
+            source_internal_id:
+              type: string
+              format: uuid
+              example: '11111111-2222-3333-4444-1234567890ab'      
+            sender_internal_id:
+              type: string
+              format: uuid
+              example: 'cccccccc-1234-4321-abcd-1234567890ab' 
